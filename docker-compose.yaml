@@ -1,8 +1,11 @@
 version: '3.9'
 
 services:
-  rs_api:
+  notifyrs:
     image: fidoriel/notifyrs:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - 8080:8080
     environment:
@@ -10,5 +13,5 @@ services:
       - SMTP_USERNAME=
       - SMTP_PASSWORD=
       - DEFAULT_RECIPIENT_EMAILS=
-      - SMTP_HOST=smtp.gmail.com:587
+      - SMTP_HOST=
       #- SECRET_KEY=1234567890

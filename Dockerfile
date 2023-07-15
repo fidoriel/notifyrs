@@ -7,6 +7,7 @@ RUN cargo install --path .
 
 
 FROM alpine:3.18
+RUN apk add libc6-compat
 COPY --from=builder /usr/local/cargo/bin/notifyrs /usr/local/bin/notifyrs
 EXPOSE 8080
 CMD ["notifyrs"]

@@ -2,6 +2,13 @@ version: '3.9'
 
 services:
   rs_api:
-    image: fidoriel/rs_api:latest
+    image: fidoriel/notifyrs:latest
     ports:
       - 8080:8080
+    environment:
+      - SENDER_EMAIL=
+      - SMTP_USERNAME=
+      - SMTP_PASSWORD=
+      - DEFAULT_RECIPIENT_EMAILS=
+      - SMTP_HOST=smtp.gmail.com:587
+      #- SECRET_KEY=1234567890

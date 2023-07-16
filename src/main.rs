@@ -1,4 +1,4 @@
-use actix_web::{post, web, App, HttpRequest, HttpResponse, HttpServer, Responder};
+use actix_web::{get, post, web, App, HttpRequest, HttpResponse, HttpServer, Responder};
 use dotenv::dotenv;
 use lettre::{message::Mailbox, Message, SmtpTransport, Transport};
 use serde::Deserialize;
@@ -99,10 +99,15 @@ fn load_config() -> Result<Config, String> {
     })
 }
 
+#[get("/health")]
+async fn health(_req: HttpRequest) -> impl Responder {
+    HttpResponse::Ok().body("Service is operational")
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     dotenv().ok();
-    HttpServer::new(move || App::new().service(send_email))
+    HttpServer::new(move || App::new().service(send_email).service(health))
         .bind("0.0.0.0:8080")?
         .run()
         .await
